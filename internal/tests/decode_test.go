@@ -6,14 +6,6 @@ import (
 	"testing"
 )
 
-type example struct {
-	Key1 string `json:"key_1"`
-}
-
-func (e *example) Type() string {
-	return "tests.example"
-}
-
 func TestUnmarshal_StructNotImplementsUnmarshaler(t *testing.T) {
 	jsonString := "{\"$type\":\"tests.example\",\"key_1\":\"value\"}"
 	dstStruct := example{}
