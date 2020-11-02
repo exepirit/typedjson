@@ -28,6 +28,8 @@ func convertStruct(v interface{}) map[string]interface{} {
 	return m
 }
 
+// Marshall convert struct implementing TypeGetter to raw byte array.
+// JSON object type will be stored in `$type` tag.
 func Marshall(v TypeGetter) ([]byte, error) {
 	m := convertStruct(v)
 	m["$type"] = v.Type()

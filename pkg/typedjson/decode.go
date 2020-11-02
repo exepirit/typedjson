@@ -9,6 +9,8 @@ type typeTag struct {
 	Tag string `json:"$type"`
 }
 
+// Unmarshal deserializes typed JSON object to struct.
+// Object type pulls from `$type` JSON attribute and will be compared with value in TypedJson method `Type()`.
 func Unmarshal(data []byte, dst TypeGetter) error {
 	dType := reflect.ValueOf(dst)
 	if dType.Kind() != reflect.Ptr || dType.IsNil() {
