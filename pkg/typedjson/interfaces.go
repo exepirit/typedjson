@@ -5,3 +5,9 @@ package typedjson
 type TypeGetter interface {
 	Type() string
 }
+
+// Option is object mutator.
+// It allow to modify before finally serialization.
+type Option interface {
+	Mutate(object map[string]interface{})
+}

@@ -30,8 +30,12 @@ func convertStruct(v interface{}) map[string]interface{} {
 
 // Marshall convert struct implementing TypeGetter to raw byte array.
 // JSON object type will be stored in `$type` tag.
-func Marshall(v TypeGetter) ([]byte, error) {
+// Additional object modifications makes by Option.
+func Marshall(v TypeGetter, options ...Option) ([]byte, error) {
 	m := convertStruct(v)
 	m["$type"] = v.Type()
+	for _, option := range options {
+		option.Mutate(m)
+	}
 	return json.Marshal(m)
 }
