@@ -13,6 +13,10 @@ func fieldKey(field reflect.StructField) string {
 	return key
 }
 
+func isIgnoredKey(key string) bool {
+	return key == "-"
+}
+
 func convertStruct(v interface{}) map[string]interface{} {
 	vValue := reflect.ValueOf(v)
 	if vValue.Kind() == reflect.Ptr {
@@ -23,7 +27,9 @@ func convertStruct(v interface{}) map[string]interface{} {
 	for i := 0; i < vType.NumField(); i++ {
 		field := vType.Field(i)
 		key := fieldKey(field)
-		m[key] = vValue.Field(i).Interface()
+		if !isIgnoredKey(key) {
+			m[key] = vValue.Field(i).Interface()
+		}
 	}
 	return m
 }

@@ -7,3 +7,12 @@ type example struct {
 func (e *example) Type() string {
 	return "tests.example"
 }
+
+type withIgnoredField struct {
+	Ignored bool   `json:"-"`
+	Key     string `json:"key"`
+}
+
+func (e *withIgnoredField) Type() string {
+	return "tests.withIgnoredField"
+}
