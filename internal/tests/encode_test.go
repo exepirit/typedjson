@@ -18,3 +18,17 @@ func TestMarshall_StructPointer(t *testing.T) {
 
 	require.JSONEq(t, `{"$type":"tests.example","key_1":"value"}`, string(marshalled))
 }
+
+func TestMarshall_StructWithIgnoredField(t *testing.T) {
+	s := withIgnoredField{
+		Ignored: false,
+		Key:     "value",
+	}
+
+	marshalled, err := typedjson.Marshall(&s)
+
+	require.NoError(t, err)
+	m := map[string]string{}
+	require.NoError(t, json.Unmarshal(marshalled, &m))
+	require.JSONEq(t, `{"$type":"tests.withIgnoredField","key":"value"}`, string(marshalled))
+}
