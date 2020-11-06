@@ -14,10 +14,7 @@ func fieldKey(field reflect.StructField) string {
 }
 
 func isIgnoredKey(key string) bool {
-	if key == "-" {
-		return true
-	}
-	return false
+	return key == "-"
 }
 
 func convertStruct(v interface{}) map[string]interface{} {
